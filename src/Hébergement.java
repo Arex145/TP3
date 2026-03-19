@@ -1,16 +1,15 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hébergement {
-    private int id;
-    private String nom;
-    private String adresse;
-    private String type;
-    private int capaciteMax;
-    private double prixParNuit;
-    private String description;
-    private List<String> equipements;
-    private double noteMoyenne;
+public abstract class Hébergement {
+    protected int id;
+    protected String nom;
+    protected String adresse;
+    protected String type;
+    protected int capaciteMax;
+    protected double prixParNuit;
+    protected List<String> equipements;
+    protected double noteMoyenne;
 
     public Hébergement(int id, String nom, String adresse, String type, int capaciteMax, double prixParNuit) {
         this.id = id;
@@ -22,15 +21,32 @@ public class Hébergement {
         this.equipements = new ArrayList<>();
     }
 
+    // Méthode abstraite pour le calcul du prix
+    public abstract double calculerPrixSejour(int nbNuits);
+
+    // Méthodes existantes
     public String getNom() {
-        return this.nom;
+        return nom;
     }
 
     public double getPrixParNuit() {
-        return this.prixParNuit;
+        return prixParNuit;
     }
 
-    // Méthodes minimales demandées
-    public double calculerPrixSejour(int nbNuits) { return prixParNuit * nbNuits; }
-    public void ajouterNote(int note) { this.noteMoyenne = (this.noteMoyenne + note) / 2.0; }
+    public void ajouterNote(int note) {
+        this.noteMoyenne = (this.noteMoyenne + note) / 2.0;
+    }
+
+    // Méthode pour afficher les informations de l'hébergement
+    public void afficher() {
+        System.out.println("ID: " + id + ", Nom: " + nom + ", Adresse: " + adresse + ", Type: " + type +
+                ", Prix/Nuit: " + prixParNuit + "€");
+    }
+
+    // Méthode toString pour faciliter le débogage
+    @Override
+    public String toString() {
+        return "ID: " + id + ", Nom: " + nom + ", Adresse: " + adresse + ", Type: " + type +
+                ", Prix/Nuit: " + prixParNuit + "€";
+    }
 }
